@@ -23,7 +23,7 @@ This repository contains all the code, documentation, and resources for our proj
 ## How to Run the Project
 1. Clone the repository: 
    ```bash
-   git clone https://github.com/[YourGitHubUsername]/[RepositoryName].git
+   git clone https://github.com/Lvish10/DigiCup_2024.git
    ```
 2. Navigate to the project directory:
    ```bash
