@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid elearning-container">
+    <h2 class="text-center">E-Learning Platform</h2>
+    <p class="text-center lead">Explore educational resources across General Education and Marine Education.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-center section-title">General Education (Primary Level)</h3>
+            <ul class="subject-list">
+                <li><a href="{{ url_for('subject', subject_name='maths') }}">Maths</a></li>
+                <li><a href="{{ url_for('subject', subject_name='english') }}">English</a></li>
+                <li><a href="{{ url_for('subject', subject_name='french') }}">French</a></li>
+                <li><a href="{{ url_for('subject', subject_name='history') }}">History</a></li>
+                <li><a href="{{ url_for('subject', subject_name='geography') }}">Geography</a></li>
+                <li><a href="{{ url_for('subject', subject_name='science') }}">Science</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="text-center section-title">Marine Education</h3>
+            <ul class="subject-list">
+                <li><a href="{{ url_for('subject', subject_name='marine_species') }}">Marine Species</a></li>
+                <li><a href="{{ url_for('subject', subject_name='marine_ecosystems') }}">Marine Ecosystems</a></li>
+                <li><a href="{{ url_for('subject', subject_name='conservation') }}">Conservation</a></li>
+                <li><a href="{{ url_for('subject', subject_name='marine_policies') }}">Marine Policies</a></li>
+                <li><a href="{{ url_for('subject', subject_name='marine_science') }}">Marine Science</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename=js_file) }}"></script>
+{% endblock %}

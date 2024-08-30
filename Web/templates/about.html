@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+    <!-- About Us Section -->
+    <section class="about-us py-5">
+        <div class="background-overlay">
+            <div class="container">
+                <h2>About Us</h2>
+                <p class="lead">#SaveTheBlu is a community-driven initiative dedicated to protecting and preserving the marine ecosystem of Mauritius. Our mission is to raise awareness about the threats facing our oceans and to inspire action through education, conservation efforts, and community involvement.</p>
+                <p>We believe that every individual has the power to make a difference, and our programs are designed to provide the tools and knowledge needed to protect our oceans for future generations. From beach cleanups to coral reef restoration projects, we are committed to making a lasting impact on the health of our marine environment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="our-team bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Team</h2>
+            <div class="row">
+                <!-- Team Member 1 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/team1.jpg') }}" class="card-img-top" alt="Team Member 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Jane Doe</h5>
+                            <p class="card-text">Founder & Marine Biologist</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/team2.jpg') }}" class="card-img-top" alt="Team Member 2">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">John Smith</h5>
+                            <p class="card-text">Project Manager & Environmental Scientist</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/team3.jpg') }}" class="card-img-top" alt="Team Member 3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Emily Johnson</h5>
+                            <p class="card-text">Community Outreach Coordinator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section class="our-mission py-5">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p class="lead">Our mission is to ensure the protection of Mauritius' marine ecosystems through advocacy, education, and direct action.</p>
+            <ul>
+                <li><i class="fas fa-water"></i> Raise awareness about the importance of marine conservation.</li>
+                <li><i class="fas fa-recycle"></i> Implement and support sustainable practices within local communities.</li>
+                <li><i class="fas fa-globe"></i> Engage with stakeholders to establish Marine Protected Areas (MPAs).</li>
+                <li><i class="fas fa-search"></i> Conduct research and monitoring to track the health of marine ecosystems.</li>
+                <li><i class="fas fa-graduation-cap"></i> Empower the next generation of ocean guardians through education and outreach.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Our Sponsors Section -->
+    <section class="our-sponsors py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Sponsors</h2>
+            <div class="row">
+                <!-- Sponsor 1 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/sponsor1.png') }}" alt="Sponsor 1">
+                </div>
+                <!-- Sponsor 2 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/sponsor2.png') }}" alt="Sponsor 2">
+                </div>
+                <!-- Sponsor 3 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/sponsor3.png') }}" alt="Sponsor 3">
+                </div>
+                <!-- Sponsor 4 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/sponsor4.png') }}" alt="Sponsor 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies We Work With Section -->
+    <section class="partner-companies py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Companies We Work With</h2>
+            <div class="row">
+                <!-- Partner 1 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/partner1.png') }}" alt="Partner 1">
+                </div>
+                <!-- Partner 2 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/partner2.png') }}" alt="Partner 2">
+                </div>
+                <!-- Partner 3 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/partner3.png') }}" alt="Partner 3">
+                </div>
+                <!-- Partner 4 -->
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/partner4.png') }}" alt="Partner 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Places We Operate Section -->
+    <section class="places-we-operate py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Places We Operate</h2>
+            <div class="row">
+                <!-- Place 1 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/place1.jpg') }}" class="card-img-top" alt="Place 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Mauritius</h5>
+                            <p class="card-text">Our primary location where we focus our efforts on marine conservation.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Place 2 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/place2.jpg') }}" class="card-img-top" alt="Place 2">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Reunion Island</h5>
+                            <p class="card-text">Collaborating on marine protection projects with local organizations.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Place 3 -->
+                <div class="col-md-4">
+                    <div class="card shadow-3d">
+                        <img src="{{ url_for('static', filename='images/place3.jpg') }}" class="card-img-top" alt="Place 3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Seychelles</h5>
+                            <p class="card-text">Supporting marine research and conservation initiatives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Information Section -->
+    <section class="additional-info py-5">
+        <div class="container">
+            <h2>Additional Information</h2>
+            <ul>
+                <li>We host educational workshops and webinars on marine conservation.</li>
+                <li>Our projects include beach cleanups, coral reef restoration, and marine wildlife protection.</li>
+                <li>We partner with local and international organizations to maximize our impact.</li>
+                <li>Volunteers and supporters play a crucial role in our efforts.</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base_general.html' %}
+
+{% block general_content %}
+<div class="col-md-12">
+    <h3>English</h3>
+    <p>Improve your English skills with interactive lessons and exercises.</p>
+</div>
+<script src="{{ url_for('static', filename=js_file) }}"></script>
+{% endblock %}

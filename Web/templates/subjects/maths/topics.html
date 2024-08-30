@@ -1,0 +1,14 @@
+{% extends 'base_general.html' %}
+
+{% block general_content %}
+<div class="container">
+    <h2>{{ title }} - Topics</h2>
+    <div class="topics">
+        <ul>
+            {% for topic in topics %}
+            <li><a href="{{ url_for('topic_details', topic_name=topic) }}">{{ topic }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

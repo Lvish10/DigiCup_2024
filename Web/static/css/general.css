@@ -1,0 +1,44 @@
+h2 {
+    color: #007bff; /* General Education Header Color */
+}
+
+.col-md-12 {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* In your general.css or marine.css */
+#sidebar {
+    height: 100vh;
+    padding-top: 20px;
+}
+
+#sidebar .nav-link {
+    color: #333;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+/* Styling for the syllabus and topics */
+.syllabus, .topics, .topic-details, .resources {
+    margin: 20px;
+}
+
+.syllabus h3, .topics h3, .topic-details h3, .resources h3 {
+    color: #007bff;
+}
+
+.syllabus ul, .topics ul, .topic-details ul, .resources ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.syllabus li, .topics li, .topic-details li, .resources li {
+    padding: 5px 0;
+}
+
+

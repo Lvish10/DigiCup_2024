@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Hero Section with Parallax Effect -->
+    <section class="hero text-white text-center py-5" style="background-image: url('{{ url_for('static', filename='images/ocean-background.jpg') }}'); background-attachment: fixed; background-size: cover; background-position: center;">
+        <div class="container">
+            <h1 class="display-4 animated fadeIn">Welcome to #SaveTheBlu</h1>
+            <p class="lead animated fadeIn">Join us in protecting and raising awareness about the marine ecosystem in Mauritius.</p>
+            <a href="{{ url_for('about') }}" class="btn btn-light btn-lg animated fadeIn">Learn More About Us</a>
+        </div>
+    </section>
+
+    <!-- Features Section with 3D Card Hover Effects -->
+    <section class="features py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm feature-card">
+                        <img src="{{ url_for('static', filename='images/maps-banner.jpg') }}" class="card-img-top" alt="Maps">
+                        <div class="card-body text-center">
+                            <i class="fas fa-map-marked-alt fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Maps</h5>
+                            <p class="card-text">Explore marine territories and find out more about the places we protect.</p>
+                            <a href="{{ url_for('maps') }}" class="btn btn-primary">View Maps</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm feature-card">
+                        <img src="{{ url_for('static', filename='images/elearning-banner.jpg') }}" class="card-img-top" alt="E-Learning">
+                        <div class="card-body text-center">
+                            <i class="fas fa-book fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">E-Learning</h5>
+                            <p class="card-text">Learn about marine life and conservation through our educational resources.</p>
+                            <a href="{{ url_for('elearning') }}" class="btn btn-primary">Explore E-Learning</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm feature-card">
+                        <img src="{{ url_for('static', filename='images/donate-banner.jpg') }}" class="card-img-top" alt="Donate">
+                        <div class="card-body text-center">
+                            <i class="fas fa-donate fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Donate</h5>
+                            <p class="card-text">Support our mission to protect marine life by making a donation.</p>
+                            <a href="{{ url_for('donate') }}" class="btn btn-primary">Make a Donation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission Section with Infographics and Animations -->
+    <section class="our-mission py-5">
+    <div class="container text-center">
+        <h2 class="mb-4 animated slideInUp">Our Mission</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 infographic-card">
+                    <div class="card-body">
+                        <i class="fas fa-fish fa-4x mb-3 text-primary"></i>
+                        <h5 class="card-title">Conserve Marine Life</h5>
+                        <p class="card-text">Our top priority is to protect the diverse marine life around Mauritius.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 infographic-card">
+                    <div class="card-body">
+                        <i class="fas fa-globe fa-4x mb-3 text-primary"></i>
+                        <h5 class="card-title">Raise Awareness</h5>
+                        <p class="card-text">We educate communities about the importance of marine conservation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 infographic-card">
+                    <div class="card-body">
+                        <i class="fas fa-leaf fa-4x mb-3 text-primary"></i>
+                        <h5 class="card-title">Sustainable Practices</h5>
+                        <p class="card-text">Promote sustainable practices to reduce human impact on marine environments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 infographic-card">
+                    <div class="card-body">
+                        <i class="fas fa-hands-helping fa-4x mb-3 text-primary"></i>
+                        <h5 class="card-title">Community Engagement</h5>
+                        <p class="card-text">Engage with local communities to foster a collective effort in conservation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Latest News Section with Carousel and Animated Transitions -->
+    <section class="latest-news py-5">
+        <div class="container text-center">
+            <h2 class="mb-4 animated bounceIn">Latest News</h2>
+            <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ url_for('static', filename='images/news1.jpg') }}" class="d-block w-100" alt="Marine Cleanup Event">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Marine Cleanup Event</h5>
+                            <p>Join us on September 15th for a beach cleanup at Flic en Flac.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ url_for('static', filename='images/news2.jpg') }}" class="d-block w-100" alt="New Marine Reserve">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>New Marine Reserve</h5>
+                            <p>A new marine reserve has been established in the south of Mauritius.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ url_for('static', filename='images/news3.jpg') }}" class="d-block w-100" alt="Educational Workshops">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Educational Workshops</h5>
+                            <p>We are hosting workshops to educate youth about marine conservation.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#newsCarousel" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#newsCarousel" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section with Parallax and Animation -->
+    <section class="cta-parallax bg-secondary text-white text-center py-5" style="background-image: url('{{ url_for('static', filename='images/ocean-background.jpg') }}'); background-attachment: fixed; background-size: cover; background-position: center;">
+        <div class="container">
+            <h2 class="display-5 animated zoomIn">Get Involved</h2>
+            <p class="lead animated fadeIn">Every small action counts. Whether you volunteer, donate, or simply spread the word, you can make a difference.</p>
+            <a href="{{ url_for('volunteer') }}" class="btn btn-light btn-lg animated pulse">Join Our Cause</a>
+        </div>
+    </section>
+
+{% endblock %}
+
+<!-- Include custom JS file -->
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+<!-- Include animation library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>

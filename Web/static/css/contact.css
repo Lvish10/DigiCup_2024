@@ -1,0 +1,37 @@
+/* Contact Page Styles */
+body {
+    background-color: #e9f5f9;
+}
+
+main {
+    margin-top: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    margin-top: 20px;
+}

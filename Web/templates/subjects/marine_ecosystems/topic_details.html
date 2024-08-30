@@ -1,0 +1,25 @@
+{% extends 'base_marine.html' %}
+
+{% block general_content %}
+<div class="container">
+    <h2>{{ title }} - {{ topic_name }}</h2>
+    <div class="topic-details">
+        <h3>Introduction</h3>
+        <p>{{ topic_intro }}</p>
+
+        <h3>Key Points</h3>
+        <ul>
+            {% for point in key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Additional Resources</h3>
+        <ul>
+            {% for resource in resources %}
+            <li><a href="{{ resource.url }}">{{ resource.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,191 @@
+/* About page styles */
+body {
+    background-image: url('/static/images/about-banner.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-color: #e0f7fa; /* Light cyan background for the entire page */
+    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    color: #333; /* Default text color */
+}
+
+/* Background Overlay */
+.background-overlay {
+    background-image: url('{{ url_for("static", filename="images/about-banner.jpg") }}');
+    background-size: cover;
+    background-position: center;
+    padding: 5rem 0; /* Spacing around the section */
+    position: relative;
+    color: #ffffff; /* White text for contrast */
+    text-align: center; /* Center text */
+}
+
+.background-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px; /* Max width for container */
+    margin: 0 auto; /* Center container */
+    padding: 0 2rem; /* Padding for container */
+}
+
+/* About Us Section */
+.about-us {
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.about-us h2 {
+    color: #00796b; /* Dark teal color for the heading */
+    font-size: 2.5rem; /* Increase heading size */
+}
+
+.about-us .lead {
+    font-weight: bold;
+}
+
+/* Our Mission Section */
+.our-mission {
+    background: #e0f2f1; /* Light teal background */
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.our-mission h2 {
+    color: #00796b; /* Dark teal color for the heading */
+    font-size: 2.5rem; /* Increase heading size */
+}
+
+.our-mission ul {
+    list-style-type: disc; /* Disc bullet points */
+    margin-left: auto; /* Center list */
+    margin-right: auto; /* Center list */
+    display: inline-block; /* Center block */
+    text-align: left; /* Align text inside list */
+    padding: 0;
+}
+
+.our-mission ul li {
+    font-size: 1.2rem; /* Slightly larger font size for list items */
+    margin-bottom: 1rem; /* Spacing between list items */
+}
+
+.our-mission ul li i {
+    color: #00796b; /* Match icon color with heading */
+    margin-right: 0.5rem; /* Space between icon and text */
+}
+
+/* Our Team Section */
+.our-team {
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.card.shadow-3d {
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D effect */
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 1rem; /* Space around cards */
+    overflow: hidden; /* Hide overflow to maintain card shape */
+}
+
+.card.shadow-3d img {
+    border-bottom: 3px solid #00796b; /* Bottom border for image */
+}
+
+.card.shadow-3d:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Our Sponsors Section */
+.our-sponsors {
+    background: transparent; /* No background color */
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.our-sponsors img {
+    max-width: 80%; /* Limit width of images */
+    height: auto; /* Maintain aspect ratio */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D effect */
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 0 auto; /* Center image */
+    display: block; /* Ensure image block behavior */
+}
+
+.our-sponsors img:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Companies We Work With Section */
+.partner-companies {
+    background-color: #f5f5f5; /* Light grey background */
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.partner-companies img {
+    max-width: 80%; /* Limit width of images */
+    height: auto; /* Maintain aspect ratio */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D effect */
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 0 auto; /* Center image */
+    display: block; /* Ensure image block behavior */
+}
+
+.partner-companies img:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Places We Operate Section */
+.places-we-operate {
+    background: transparent; /* No background color */
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.places-we-operate .card {
+    border-radius: 10px; /* Rounded corners for cards */
+    overflow: hidden; /* Ensure content stays within card border */
+}
+
+/* Additional Information Section */
+.additional-info {
+    background-color: #f5f5f5; /* Light grey background */
+    padding: 5rem 0; /* Spacing around the section */
+    text-align: center; /* Center text */
+}
+
+.additional-info h2 {
+    color: #00796b; /* Dark teal color for the heading */
+    font-size: 2.5rem; /* Increase heading size */
+}
+
+.additional-info ul {
+    list-style-type: disc; /* Disc bullet points */
+    margin-left: auto; /* Center list */
+    margin-right: auto; /* Center list */
+    display: inline-block; /* Center block */
+    text-align: left; /* Align text inside list */
+    padding: 0;
+}
+
+.additional-info ul li {
+    font-size: 1.2rem; /* Slightly larger font size for list items */
+    margin-bottom: 1rem; /* Spacing between list items */
+}

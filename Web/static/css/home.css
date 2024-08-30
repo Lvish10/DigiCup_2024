@@ -1,0 +1,192 @@
+/* Home page styles */
+body {
+    background-image: url('/static/images/home-banner.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-color: #e0f7fa; /* Light cyan background for the entire page */
+    font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #00796b; /* Dark teal background */
+    color: #ffffff; /* White text color */
+    padding: 5rem 0; /* Spacing around the hero section */
+    text-align: center; /* Center-aligned text */
+    border-radius: 20px; /* Rounded corners */
+}
+
+.hero .btn {
+    border-radius: 50px; /* Rounded button corners */
+    padding: 0.75rem 1.5rem; /* Padding inside buttons */
+    background-color: #ffffff; /* White background */
+    border-color: #ffffff; /* White border color */
+    color: #000000; /* Black text color */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transitions */
+}
+
+.hero .btn:hover {
+    background-color: #000000; /* Black background on hover */
+    border-color: #000000; /* Black border color on hover */
+    color: #ffffff; /* White text color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Features Section */
+/* Ensure the section has no background color */
+.features {
+    background: transparent; /* Make the section background transparent */
+    padding: 5rem 0; /* Spacing around the features section */
+}
+
+/* Ensure no background color on container */
+.features .container {
+    background: transparent; /* Remove any background from the container */
+    padding: 0; /* Remove padding if necessary */
+}
+
+/* Card Styles */
+.features .card {
+    border-radius: 15px; /* Rounded corners for cards */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for cards */
+    padding: 1.5rem; /* Padding inside card body */
+    width: 300px; /* Fixed width for cards */
+    height: 500px; /* Fixed height for cards */
+    margin: auto; /* Center cards horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for visibility */
+}
+
+/* Our Mission Section */
+/* Ensure the section has no background color */
+.our-mission {
+    background: transparent; /* Make the section background transparent */
+    padding: 5rem 0; /* Spacing around the mission section */
+}
+
+/* Ensure no background color on container */
+.our-mission .container {
+    background: transparent; /* Remove any background from the container */
+    padding: 0; /* Remove padding if necessary */
+}
+
+/* Card Styles */
+.infographic-card {
+    border-radius: 15px; /* Rounded corners for cards */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for cards */
+    padding: 1.5rem; /* Padding inside card body */
+    width: 260px; /* Fixed width for cards */
+    height: 300px; /* Fixed height for cards */
+    margin: auto; /* Center cards horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for visibility */
+}
+
+/* Ensure consistent card styling */
+.card-body {
+    padding: 1.5rem; /* Padding inside card body */
+}
+
+/* Ensure no background color on card header and text */
+.card-title, .card-text {
+    background: none; /* Remove background from card text elements */
+}
+
+/* Header */
+h2 {
+    color: #ffffff; /* Dark teal color for header */
+}
+
+/* Latest News Section */
+.latest-news {
+    padding: 5rem 0; /* Spacing around the news section */
+}
+
+.latest-news .carousel-item {
+    padding: 2rem; /* Padding inside carousel items */
+    border-radius: 15px; /* Rounded corners */
+}
+
+/* Call to Action Section */
+.cta-parallax {
+    background-attachment: fixed; /* Parallax effect for background */
+    background-size: cover; /* Ensure the background image covers the section */
+    color: #ffffff; /* White text color */
+    padding: 5rem 0; /* Spacing around the CTA section */
+    text-align: center; /* Center-aligned text */
+    border-radius: 20px; /* Rounded corners */
+}
+
+.cta-parallax .btn {
+    border-radius: 50px; /* Rounded button corners */
+    padding: 0.75rem 1.5rem; /* Padding inside buttons */
+    background-color: #ffffff; /* White background */
+    border-color: #ffffff; /* White border color */
+    color: #000000; /* Black text color */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transitions */
+}
+
+.cta-parallax .btn:hover {
+    background-color: #000000; /* Black background on hover */
+    border-color: #000000; /* Black border color on hover */
+    color: #ffffff; /* White text color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Header and Footer */
+header {
+    background-color: #00796b; /* Dark teal background */
+    color: #ffffff; /* White text color */
+    padding: 1rem 0; /* Spacing inside the header */
+    text-align: center; /* Center-aligned text */
+}
+
+footer {
+    background-color: #004d40; /* Darker teal background */
+    color: #ffffff; /* White text color */
+    padding: 1rem 0; /* Spacing inside the footer */
+    text-align: center; /* Center-aligned text */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        padding: 3rem 0; /* Reduced padding on smaller screens */
+    }
+
+    .features .card {
+        margin-bottom: 1.5rem; /* Spacing between cards on smaller screens */
+    }
+
+    .cta-parallax {
+        padding: 3rem 0; /* Reduced padding on smaller screens */
+    }
+}
+
+/* Hero Section Overlay */
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text readability */
+}
+
+/* Card Hover Effect */
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Carousel Images */
+.carousel-item img {
+    height: 400px; /* Height for carousel images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 15px; /* Rounded corners for carousel images */
+}
+
+/* Parallax Effect */
+.cta-parallax {
+    background-blend-mode: overlay;
+}
+
+/* Additional Styles */
+.btn-warning {
+    background-color: #ffc107; /* Warning button color */
+    border-color: #ffc107; /* Warning button border color */
+}

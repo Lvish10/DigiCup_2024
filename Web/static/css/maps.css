@@ -1,0 +1,85 @@
+/* Maps page styles */
+body {
+    background-image: url('/static/images/maps-banner3.jpg'); /* Updated background image */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-color: #c8e6c9; /* Light green background for ocean theme */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    color: #003d34; /* Darker teal for better contrast and readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Outer wrapper container for maps page */
+.maps-wrapper {
+    display: flex;
+    justify-content: center; /* Center the maps container horizontally */
+    padding: 2rem; /* Padding around the wrapper for extra space */
+}
+
+/* Outer container for maps page */
+.maps-container {
+    max-width: 1000px; /* Slightly narrower container width */
+    margin: 0 auto; /* Center container */
+    padding: 2.5rem; /* Slightly increased padding for added space */
+    background: rgba(255, 255, 255, 0.9); /* More opaque white background for better contrast */
+    border-radius: 15px; /* More pronounced rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35); /* Enhanced shadow effect for more depth */
+    border: 1px solid #004d40; /* Thin dark teal border for added distinction */
+    overflow: hidden; /* Ensures no content overflows the container */
+    position: relative; /* For positioning child elements */
+}
+
+/* Inner container for additional layout structure */
+.maps-content {
+    padding: 1.5rem; /* Padding for spacing inside the outer container */
+    background: rgba(255, 255, 255, 0.95); /* Slightly more opaque white background for contrast */
+    border-radius: 10px; /* Rounded corners for the inner container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+/* Information Box */
+.info {
+    margin-top: 2rem; /* Space above the information section */
+    padding: 1.5rem; /* Increased padding for more space */
+    background-color: rgba(224, 244, 241, 0.85); /* Light teal background with slight transparency */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow effect */
+    border: 2px solid #004d40; /* Dark teal border */
+}
+
+/* Map Styling */
+#map {
+    border: 3px solid #004d40; /* Dark teal border for the map */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow effect */
+    margin-top: 2rem; /* Space above the map */
+}
+
+/* Leaflet and OpenLayers Map Styling */
+#leafletMap, #openLayersMap {
+    border: 3px solid #004d40; /* Dark teal border */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow effect */
+    margin-top: 2rem; /* Space above the maps */
+    background-color: #f1f8f6; /* Light background color to contrast with the map */
+}
+
+/* Maps page footer */
+footer {
+    background: rgba(0, 77, 64, 0.8); /* Dark teal background with some transparency */
+    color: #ffffff; /* White text color for contrast */
+    padding: 1.5rem 2rem; /* Add padding for spacing */
+    text-align: center; /* Center align text */
+    border-top: 3px solid #004d40; /* Dark teal border at the top */
+    position: relative; /* Ensure footer is positioned relative */
+    z-index: 10; /* Ensure footer stays above other elements */
+}
+
+/* Ensure footer is not influenced by container styles */
+footer {
+    display: block; /* Ensure it's a block element */
+    margin: 0; /* Remove any default margins */
+    box-shadow: none; /* Remove any box-shadow if inherited */
+}

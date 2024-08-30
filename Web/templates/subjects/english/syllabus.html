@@ -1,0 +1,25 @@
+{% extends 'base_general.html' %}
+
+{% block general_content %}
+<div class="container">
+    <h2>{{ title }} - Syllabus</h2>
+    <div class="syllabus">
+        <h3>Course Overview</h3>
+        <p>{{ syllabus_description }}</p>
+
+        <h3>Learning Objectives</h3>
+        <ul>
+            {% for objective in learning_objectives %}
+            <li>{{ objective }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Course Modules</h3>
+        <ul>
+            {% for module in modules %}
+            <li><a href="{{ url_for('topic', topic_name=module) }}">{{ module }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

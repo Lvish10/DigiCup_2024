@@ -1,0 +1,52 @@
+/* E-learning page styles */
+.elearning-container {
+    padding: 3rem 1.5rem;
+    background-color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #004d40;
+    border-bottom: 3px solid #004d40;
+    padding-bottom: 0.5rem;
+}
+
+.subject-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.subject-list li {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.subject-list li:hover {
+    background-color: #004d40;
+    border-color: #004d40;
+}
+
+.subject-list a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 500;
+    display: block;
+}
+
+.subject-list li:hover a {
+    color: #ffffff;
+}
+
+/* Additional hover effects for a modern feel */
+.subject-list li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

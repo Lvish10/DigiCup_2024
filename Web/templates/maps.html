@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="maps-wrapper">
+    <div class="maps-container">
+        <div class="maps-content">
+            <h2>Marine Maps</h2>
+            <p>Explore the marine territories and find your location.</p>
+
+            <!-- Map container for Leaflet -->
+            <div id="leafletMap" style="height: 600px; width: 100%; margin-bottom: 20px;"></div>
+
+            <!-- Additional information -->
+            <div class="info">
+                <h3>Marine Territories</h3>
+                <p>View the designated marine areas and see important locations related to marine life and activities in Mauritius.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!-- OpenLayers CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ol/ol.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- OpenLayers JavaScript -->
+<script src="https://unpkg.com/ol/ol.js"></script>
+
+<!-- Your custom JavaScript -->
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+{% endblock %}
