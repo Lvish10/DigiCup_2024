@@ -1,1 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Cleanup Quest</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: #001f3f;
+            overflow: hidden;
+        }
+
+        canvas {
+            background: radial-gradient(circle at center, #1e3c72, #10203c, #000000); /* Deep ocean gradient */
+            display: block;
+        }
+
+        .controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        button {
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #007acc;
+        }
+
+        .status {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="resetGame()">Restart</button>
+    </div>
+    <div class="status">Trash Collected: <span id="trash-count">0</span> / 5</div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Gradient effect for ocean depth
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#1e3c72');  // Surface
+        gradient.addColorStop(0.5, '#10203c'); // Mid-ocean
+        gradient.addColorStop(1, '#000000');   // Deep ocean
+
+        // Player (diver)
+        let diver = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 50,
+            height: 50,
+            dx: 0,
+            dy: 0,
+            speed: 4,
+            friction: 0.9,
+            color: '#FFD700',  // Diver's golden hue for visibility
+        };
+
+        // Trash items (to collect)
+        let trash = [];
+        let trashCollected = 0;
+        const maxTrash = 5;
+
+        // Coral spots (to plant)
+        let coralSpots = [
+            { x: 200, y: 500, planted: false },
+            { x: 700, y: 300, planted: false },
+            { x: 1200, y: 600, planted: false }
+        ];
+
+        let keys = {};
+
+        // Track keys for movement
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        // Player movement
+        function moveDiver() {
+            if (keys['ArrowUp'] || keys['w']) diver.dy = -diver.speed;
+            else if (keys['ArrowDown'] || keys['s']) diver.dy = diver.speed;
+            else diver.dy *= diver.friction;
+
+            if (keys['ArrowLeft'] || keys['a']) diver.dx = -diver.speed;
+            else if (keys['ArrowRight'] || keys['d']) diver.dx = diver.speed;
+            else diver.dx *= diver.friction;
+
+            diver.x += diver.dx;
+            diver.y += diver.dy;
+
+            // Boundaries to keep diver in the canvas
+            if (diver.x < 0) diver.x = 0;
+            if (diver.x + diver.width > canvas.width) diver.x = canvas.width - diver.width;
+            if (diver.y < 0) diver.y = 0;
+            if (diver.y + diver.height > canvas.height) diver.y = canvas.height - diver.height;
+        }
+
+        // Draw the player
+        function drawDiver() {
+            ctx.fillStyle = diver.color;
+            ctx.beginPath();
+            ctx.arc(diver.x + diver.width / 2, diver.y + diver.height / 2, diver.width / 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Random trash generator
+        function spawnTrash() {
+            if (trash.length < 5) {
+                trash.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    width: 30,
+                    height: 30,
+                    collected: false
+                });
+            }
+        }
+
+        // Draw trash
+        function drawTrash() {
+            trash.forEach(item => {
+                if (!item.collected) {
+                    ctx.fillStyle = '#FF4500';  // Orange color for trash
+                    ctx.fillRect(item.x, item.y, item.width, item.height);
+                }
+            });
+        }
+
+        // Check for collision between diver and trash
+        function checkTrashCollection() {
+            trash.forEach(item => {
+                if (!item.collected &&
+                    diver.x < item.x + item.width &&
+                    diver.x + diver.width > item.x &&
+                    diver.y < item.y + item.height &&
+                    diver.y + diver.height > item.y) {
+                    item.collected = true;
+                    trashCollected++;
+                    document.getElementById('trash-count').textContent = trashCollected;
+
+                    // If enough trash is collected, allow coral planting
+                    if (trashCollected >= maxTrash) {
+                        unlockCoralSpots();
+                    }
+                }
+            });
+        }
+
+        // Draw coral spots
+        function drawCoralSpots() {
+            coralSpots.forEach(spot => {
+                if (!spot.planted) {
+                    ctx.fillStyle = '#00FA9A';  // Green for coral spots
+                    ctx.fillRect(spot.x, spot.y, 50, 50);
+                } else {
+                    // Coral planted
+                    ctx.fillStyle = '#7FFF00';  // Lush coral green
+                    ctx.fillRect(spot.x, spot.y, 50, 50);
+                    // Draw some returning fish
+                    ctx.fillStyle = '#FFD700';  // Golden fish
+                    ctx.beginPath();
+                    ctx.arc(spot.x + 25, spot.y - 30, 10, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+        }
+
+        // Allow coral planting after enough trash is collected
+        function unlockCoralSpots() {
+            coralSpots.forEach(spot => {
+                if (!spot.planted && diver.x < spot.x + 50 && diver.x + diver.width > spot.x && diver.y < spot.y + 50 && diver.y + diver.height > spot.y) {
+                    spot.planted = true;  // Plant coral
+                }
+            });
+        }
+
+        // Reset game
+        function resetGame() {
+            diver.x = canvas.width / 2;
+            diver.y = canvas.height / 2;
+            trash = [];
+            trashCollected = 0;
+            document.getElementById('trash-count').textContent = trashCollected;
+            coralSpots.forEach(spot => spot.planted = false);
+        }
+
+        // Update game
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = gradient;  // Set the ocean gradient
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            moveDiver();
+            drawDiver();
+            spawnTrash();
+            drawTrash();
+            checkTrashCollection();
+            drawCoralSpots();
+
+            requestAnimationFrame(update);
+        }
+
+        update();  // Start the game loop
+    </script>
+</body>
+</html>
 
