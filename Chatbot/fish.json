@@ -1,0 +1,35 @@
+{
+    "fish_species": {
+      "napoleon_wrasse": {
+        "description": "The Napoleon wrasse is a large, colorful reef fish found in the Indian and Pacific Oceans.",
+        "habitat": "Coral reefs around Mauritius.",
+        "conservation_status": "Vulnerable",
+        "notes": "It is protected under Mauritian law due to its declining population."
+      },
+      "parrotfish": {
+        "description": "Parrotfish are known for their bright colors and their beak-like teeth used for scraping algae off coral reefs.",
+        "habitat": "Coral reefs and seagrass beds.",
+        "conservation_status": "Least Concern",
+        "notes": "Important for the health of coral reefs as they help control algae growth."
+      },
+      "yellowtail_snapper": {
+        "description": "A common fish found in tropical waters, recognized by its yellow tail and body.",
+        "habitat": "Reef and pelagic zones.",
+        "conservation_status": "Least Concern",
+        "notes": "Popular in local fisheries and as a food source."
+      },
+      "tuna": {
+        "description": "Tuna are large, fast-swimming fish known for their commercial value and migratory behavior.",
+        "habitat": "Pelagic waters, often far from shore.",
+        "conservation_status": "Varies by species",
+        "notes": "Overfishing concerns exist for some species."
+      },
+      "lionfish": {
+        "description": "Lionfish are known for their venomous spines and striking appearance.",
+        "habitat": "Coral reefs and rocky crevices.",
+        "conservation_status": "Invasive species",
+        "notes": "Their introduction to non-native areas can threaten local ecosystems."
+      }
+    }
+  }
+  
