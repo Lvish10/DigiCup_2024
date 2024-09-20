@@ -8,27 +8,78 @@
         <div class="col-md-6">
             <h3 class="text-center section-title">General Education (Primary Level)</h3>
             <ul class="subject-list">
-                <li><a href="{{ url_for('subject', subject_name='maths') }}">Maths</a></li>
-                <li><a href="{{ url_for('subject', subject_name='english') }}">English</a></li>
-                <li><a href="{{ url_for('subject', subject_name='french') }}">French</a></li>
-                <li><a href="{{ url_for('subject', subject_name='history') }}">History</a></li>
-                <li><a href="{{ url_for('subject', subject_name='geography') }}">Geography</a></li>
-                <li><a href="{{ url_for('subject', subject_name='science') }}">Science</a></li>
+                <li><a href="#"
+                        onclick="openPdf('Maths', 'maths.pdf', 'Learn about numbers, equations, and problem-solving techniques.');">Maths</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('English', 'english.pdf', 'Enhance your reading, writing, and comprehension skills.');">English</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('French', 'french.pdf', 'Discover the basics of the French language and culture.');">French</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('History', 'history.pdf', 'Explore significant historical events and figures.');">History</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('Geography', 'geography.pdf', 'Understand the world’s landscapes, environments, and cultures.');">Geography</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('Science', 'science.pdf', 'Dive into the principles of biology, chemistry, and physics.');">Science</a>
+                </li>
             </ul>
         </div>
 
         <div class="col-md-6">
             <h3 class="text-center section-title">Marine Education</h3>
             <ul class="subject-list">
-                <li><a href="{{ url_for('subject', subject_name='marine_species') }}">Marine Species</a></li>
-                <li><a href="{{ url_for('subject', subject_name='marine_ecosystems') }}">Marine Ecosystems</a></li>
-                <li><a href="{{ url_for('subject', subject_name='conservation') }}">Conservation</a></li>
-                <li><a href="{{ url_for('subject', subject_name='marine_policies') }}">Marine Policies</a></li>
-                <li><a href="{{ url_for('subject', subject_name='marine_science') }}">Marine Science</a></li>
+                <li><a href="#"
+                        onclick="openPdf('Marine Species', 'marine_species.pdf', 'Learn about diverse marine life and their habitats.');">Marine
+                        Species</a></li>
+                <li><a href="#"
+                        onclick="openPdf('Marine Ecosystems', 'marine_ecosystems.pdf', 'Explore the interactions between marine organisms and their environments.');">Marine
+                        Ecosystems</a></li>
+                <li><a href="#"
+                        onclick="openPdf('Conservation', 'conservation.pdf', 'Understand the importance of protecting marine ecosystems.');">Conservation</a>
+                </li>
+                <li><a href="#"
+                        onclick="openPdf('Marine Policies', 'marine_policies.pdf', 'Get to know policies that safeguard marine resources.');">Marine
+                        Policies</a></li>
+                <li><a href="#"
+                        onclick="openPdf('Marine Science', 'marine_science.pdf', 'Investigate the scientific study of oceans and seas.');">Marine
+                        Science</a></li>
             </ul>
         </div>
     </div>
+
+    <!-- PDF Viewer Container -->
+    <div id="pdfViewer" class="pdf-viewer" style="display: none;">
+        <h3 id="pdfTitle" class="text-center"></h3> <!-- Title for the PDF -->
+        <p id="pdfDescription" class="text-center"></p> <!-- Description for the PDF -->
+        <iframe id="pdfFrame" src="" style="width: 100%; height: 500px; border: none;"></iframe>
+        <button onclick="closePdf()">Close</button>
+    </div>
 </div>
+
+<script>
+    function openPdf(title, pdfFile, description) {
+        const pdfViewer = document.getElementById('pdfViewer');
+        const pdfFrame = document.getElementById('pdfFrame');
+        const pdfTitle = document.getElementById('pdfTitle');
+        const pdfDescription = document.getElementById('pdfDescription');
+
+        pdfFrame.src = pdfFile; // Set the source of the iframe to the PDF file
+        pdfTitle.textContent = title; // Set the title for the PDF
+        pdfDescription.textContent = description; // Set the description for the PDF
+        pdfViewer.style.display = 'block'; // Show the PDF viewer
+    }
+
+    function closePdf() {
+        const pdfViewer = document.getElementById('pdfViewer');
+        const pdfFrame = document.getElementById('pdfFrame');
+        pdfFrame.src = ''; // Clear the iframe source
+        pdfViewer.style.display = 'none'; // Hide the PDF viewer
+    }
+</script>
 
 <script src="{{ url_for('static', filename=js_file) }}"></script>
 {% endblock %}

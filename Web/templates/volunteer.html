@@ -3,6 +3,21 @@
 <div class="container">
     <h2>Volunteer with Us</h2>
     <p>Apply to become a part of our organization and help us protect the marine environment.</p>
-    <!-- Add volunteer form or information here -->
+    
+    <form method="POST" action="{{ url_for('apply') }}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
 </div>
 {% endblock %}

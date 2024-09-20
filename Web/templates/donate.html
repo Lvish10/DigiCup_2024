@@ -1,8 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h2>Donate</h2>
-    <p>Your donations help us continue our work. Thank you for your support!</p>
-    <!-- Add donation form or information here -->
+<div class="container text-center">
+    <h2 class="mb-4">Make a Difference Today</h2>
+    <p class="lead">Your generosity enables us to continue our vital work in the community. Every donation, big or
+        small, plays a crucial role in supporting our mission.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="donation-form mt-5">
+        <h4 class="mb-3">Choose Your Donation Amount</h4>
+        <p>Your contribution helps fund our projects and outreach efforts. Thank you for considering a donation!</p>
+
+        <!-- PayPal Donation Button -->
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_donations">
+            <input type="hidden" name="business" value="your-paypal-email@example.com"> <!-- Your PayPal email -->
+            <input type="hidden" name="item_name" value="Donation">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="number" name="amount" placeholder="Enter amount" required class="form-control mb-2" min="1"
+                step="0.01">
+            <button type="submit" class="btn btn-primary btn-lg">Donate Now</button>
+        </form>
+
+        <div class="mt-4">
+            <p>If you have any questions or would like to learn more about how your donation will be used, please <a
+                    href="{{ url_for('contact') }}">contact us</a>.</p>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-4">
+        <strong>Security Notice:</strong> Your payment information is processed securely through PayPal. We prioritize
+        your privacy and data protection.
+    </div>
 </div>
 {% endblock %}
