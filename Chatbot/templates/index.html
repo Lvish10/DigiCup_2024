@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Marine Chatbot</title>
+</head>
+<body>
+    <h1>Marine Information Chatbot</h1>
+    <input type="text" id="userInput" placeholder="Ask about marine life...">
+    <button onclick="sendMessage()">Send</button>
+    <div id="response"></div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('userInput').value;
+            const responseDiv = document.getElementById('response');
+
+            const res = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await res.json();
+            responseDiv.innerHTML = data.response;
+        }
+    </script>
+</body>
+</html>

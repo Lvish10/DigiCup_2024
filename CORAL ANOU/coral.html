@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Cleanup Quest</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #001f3f;
+            overflow: hidden;
+        }
+
+        canvas {
+            background: radial-gradient(circle at center, #1e3c72, #10203c, #000000);
+            display: block;
+        }
+
+        .controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        button {
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #007acc;
+        }
+
+        .status {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            z-index: 10;
+        }
+
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            display: none;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        #startScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #001f3f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 100;
+        }
+
+        #startButton {
+            background-color: #00bfff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        #startButton:hover {
+            background-color: #007acc;
+        }
+
+        #mathProblemBox {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            display: none;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        #mathAnswer {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 10px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        #gameTitle {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        #gameInstructions {
+            font-size: 20px;
+            margin-top: 10px;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        @media (max-width: 600px) {
+            #gameTitle {
+                font-size: 36px;
+            }
+            #gameInstructions {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="resetGame()">Restart</button>
+        <button onclick="toggleMusic()">
+            <span id="musicButtonText">Pause Music</span>
+        </button>
+    </div>
+    <div class="status">
+        Level: <span id="level-number">1</span> |
+        Trash Collected: <span id="trash-count">0</span> / <span id="max-trash">5</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <audio id="trashSound" src="audio/trash-collect.mp3"></audio>
+    <audio id="coralSound" src="audio/coral-plant.mp3"></audio>
+    <audio id="backgroundMusic" src="audio/background .mp3" loop></audio>
+
+    <div id="startScreen">
+        <div id="gameTitle">Ocean Cleanup Quest</div>
+        <div id="gameInstructions">
+            Help the diver clean up the ocean by collecting trash and planting coral!
+            Use the arrow keys or WASD to move. Click on gray coral spots to plant coral.
+            Solve math problems to continue collecting trash.
+        </div>
+        <button id="startButton">Start Game</button>
+    </div>
+
+    <div class="message" id="messageBox">
+        <p id="messageText">Congratulations! You've collected all the trash!</p>
+        <button onclick="nextLevel()">Next Level</button>
+    </div>
+
+    <div class="message" id="mathProblemBox">
+        <p id="mathProblemText">Solve this math problem: </p>
+        <input type="number" id="mathAnswer" placeholder="Your answer" />
+        <button onclick="submitMathAnswer()">Submit</button>
+    </div>
+
+    <script>
+        // Constants
+        const CANVAS_WIDTH = window.innerWidth;
+        const CANVAS_HEIGHT = window.innerHeight;
+        const DIVER_SIZE = 50;
+        const DIVER_SPEED = 4;
+        const TRASH_SIZE = 30;
+        const CORAL_SIZE = 50;
+        const MAX_INITIAL_TRASH = 5;
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+
+        const trashSound = document.getElementById('trashSound');
+        const coralSound = document.getElementById('coralSound');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const startScreen = document.getElementById('startScreen');
+        const startButton = document.getElementById('startButton');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const levelNumberDisplay = document.getElementById('level-number');
+        const musicButtonText = document.getElementById('musicButtonText');
+
+        let level = 1;
+        let trashCollected = 0;
+        let maxTrash = MAX_INITIAL_TRASH;
+        let currentAnswer = 0; // Stores the correct answer for the current math problem
+        let gamePaused = false; // To pause the game while solving a math problem
+        let musicPlaying = true;
+
+        class Diver {
+            constructor() {
+                this.x = CANVAS_WIDTH / 2;
+                this.y = CANVAS_HEIGHT / 2;
+                this.width = DIVER_SIZE;
+                this.height = DIVER_SIZE;
+                this.dx = 0;
+                this.dy = 0;
+                this.speed = DIVER_SPEED;
+                this.friction = 0.9;
+                this.color = '#FFD700';
+            }
+
+            move() {
+                if (keys['ArrowUp'] || keys['w']) this.dy = -this.speed;
+                else if (keys['ArrowDown'] || keys['s']) this.dy = this.speed;
+                else this.dy *= this.friction;
+
+                if (keys['ArrowLeft'] || keys['a']) this.dx = -this.speed;
+                else if (keys['ArrowRight'] || keys['d']) this.dx = this.speed;
+                else this.dx *= this.friction;
+
+                this.x += this.dx;
+                this.y += this.dy;
+
+                // Boundaries
+                if (this.x < 0) this.x = 0;
+                if (this.x + this.width > CANVAS_WIDTH) this.x = CANVAS_WIDTH - this.width;
+                if (this.y < 0) this.y = 0;
+                if (this.y + this.height > CANVAS_HEIGHT) this.y = CANVAS_HEIGHT - this.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        class Trash {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = TRASH_SIZE;
+                this.height = TRASH_SIZE;
+                this.collected = false;
+            }
+
+            draw() {
+                if (!this.collected) {
+                    ctx.fillStyle = '#FF4500';
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+            }
+        }
+
+        class CoralSpot {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = CORAL_SIZE;
+                this.height = CORAL_SIZE;
+                this.planted = false;
+            }
+
+            draw() {
+                ctx.fillStyle = this.planted ? '#228B22' : '#808080';
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        const diver = new Diver();
+        let trash = [];
+        let coralSpots = [];
+
+        // Initialize coral spots
+        function initCoralSpots() {
+            coralSpots = [
+                new CoralSpot(200, 500),
+                new CoralSpot(700, 300),
+                new CoralSpot(1200, 600)
+            ];
+        }
+        initCoralSpots();
+
+        let keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        // Click to plant coral
+        canvas.addEventListener('click', (event) => {
+            if (gamePaused) return;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            coralSpots.forEach(spot => {
+                if (!spot.planted &&
+                    mouseX > spot.x &&
+                    mouseX < spot.x + spot.width &&
+                    mouseY > spot.y &&
+                    mouseY < spot.y + spot.height) {
+                    spot.planted = true; // Plant coral
+                    coralSound.play(); // Play coral planting sound
+                }
+            });
+        });
+
+        // Start the game when the start button is clicked
+        startButton.addEventListener('click', () => {
+            startScreen.style.display = 'none'; // Hide start screen
+            backgroundMusic.play();             // Start background music
+            update();                           // Start game loop
+        });
+
+        function spawnTrash() {
+            while (trash.length < maxTrash) {
+                const x = Math.random() * (CANVAS_WIDTH - TRASH_SIZE);
+                const y = Math.random() * (CANVAS_HEIGHT - TRASH_SIZE);
+                trash.push(new Trash(x, y));
+            }
+        }
+
+        function checkTrashCollection() {
+            trash.forEach(item => {
+                if (!item.collected &&
+                    diver.x < item.x + item.width &&
+                    diver.x + diver.width > item.x &&
+                    diver.y < item.y + item.height &&
+                    diver.y + diver.height > item.y) {
+                    item.collected = true;
+                    trashCollected++;
+                    document.getElementById('trash-count').textContent = trashCollected;
+
+                    trashSound.play();
+                    generateMathProblem(); // Generate a math problem when trash is collected
+
+                    if (trashCollected >= maxTrash) {
+                        displayLevelCompleteMessage();
+                    }
+                }
+            });
+        }
+
+        function drawTrash() {
+            trash.forEach(item => item.draw());
+        }
+
+        function drawCoralSpots() {
+            coralSpots.forEach(spot => spot.draw());
+        }
+
+        function displayLevelCompleteMessage() {
+            messageText.textContent = `Great job! You've cleaned up level ${level}!`;
+            messageBox.style.display = 'block';
+            gamePaused = true;
+        }
+
+        function nextLevel() {
+            messageBox.style.display = 'none';
+            level++;
+            levelNumberDisplay.textContent = level;
+            maxTrash += 5;
+            document.getElementById('max-trash').textContent = maxTrash;
+            trashCollected = 0;
+            trash = [];
+            coralSpots.forEach(spot => spot.planted = false);
+            gamePaused = false;
+        }
+
+        function resetGame() {
+            level = 1;
+            maxTrash = MAX_INITIAL_TRASH;
+            trashCollected = 0;
+            trash = [];
+            initCoralSpots();
+            levelNumberDisplay.textContent = level;
+            document.getElementById('max-trash').textContent = maxTrash;
+            document.getElementById('trash-count').textContent = trashCollected;
+            gamePaused = false;
+        }
+
+        function generateMathProblem() {
+            const operators = ['+', '-', '*'];
+            const operatorWords = {
+                '+': 'plus',
+                '-': 'minus',
+                '*': 'times'
+            };
+
+            // Select a random operator
+            const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+
+            const num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+            const num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+
+            let problemText = `${num1} ${operatorWords[randomOperator]} ${num2}`;
+            let answer;
+
+            // Calculate the correct answer based on the selected operator
+            switch (randomOperator) {
+                case '+':
+                    answer = num1 + num2;
+                    break;
+                case '-':
+                    answer = num1 - num2;
+                    break;
+                case '*':
+                    answer = num1 * num2;
+                    break;
+            }
+
+            // Store the correct answer for validation
+            currentAnswer = answer;
+
+            // Display the math problem in the popup
+            document.getElementById('mathProblemText').textContent = `Solve this math problem: ${problemText}`;
+            document.getElementById('mathProblemBox').style.display = 'block'; // Show the popup
+            document.getElementById('mathAnswer').value = ''; // Clear the input
+            document.getElementById('mathAnswer').focus();
+            gamePaused = true; // Pause the game
+        }
+
+        function submitMathAnswer() {
+            const userAnswer = parseInt(document.getElementById('mathAnswer').value);
+            if (userAnswer === currentAnswer) {
+                document.getElementById('mathProblemBox').style.display = 'none'; // Hide the popup
+                gamePaused = false; // Resume the game
+            } else {
+                alert("Incorrect answer. Try again!"); // Notify the user if they get it wrong
+            }
+        }
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                backgroundMusic.pause();
+                musicButtonText.textContent = 'Play Music';
+            } else {
+                backgroundMusic.play();
+                musicButtonText.textContent = 'Pause Music';
+            }
+            musicPlaying = !musicPlaying;
+        }
+
+        function update() {
+            if (!gamePaused) { // Only update if the game is not paused
+                ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+                diver.move();
+                diver.draw();
+                spawnTrash();
+                drawTrash();
+                checkTrashCollection();
+                drawCoralSpots();
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Start the game loop when the page loads (after user interaction)
+        // update();
+    </script>
+</body>
+</html>
