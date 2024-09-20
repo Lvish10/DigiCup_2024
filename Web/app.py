@@ -188,10 +188,6 @@ def marine_education():
 def general_education():
     return render_template('base_general.html', title='General Education', css_file='general.css', js_file='general.js')
 
-# Marine Laws Page
-@app.route('/marine_laws')
-def marine_laws():
-    return render_template('marine_laws.html', title='Marine Laws', css_file='marine_laws.css', js_file='marine_laws.js')
 
 # Volunteer Page
 @app.route('/volunteer')
