@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ocean Adventure Quiz Game</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #00BFFF, #1E90FF);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        #game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #000;
+        }
+
+        #score {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        #timer {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #riddle {
+            font-size: 1.3em;
+            margin: 20px;
+        }
+
+        #answer {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #submit {
+            padding: 10px 30px;
+            font-size: 1em;
+            background-color: #FFBF00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: #e0a800;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            min-height: 40px;
+        }
+
+        .correct {
+            color: #32CD32;
+            text-shadow: 1px 1px #000;
+        }
+
+        .incorrect {
+            color: #FF4500;
+            text-shadow: 1px 1px #000;
+        }
+
+        #final-score {
+            font-size: 2em;
+            margin-top: 50px;
+        }
+
+        /* Background animation */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: rise 10s infinite ease-in;
+            z-index: 0;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            #riddle {
+                font-size: 1.1em;
+                margin: 15px;
+            }
+
+            #answer {
+                width: 90%;
+            }
+
+            #submit {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>🐳 Ocean Adventure Quiz 🐠</h1>
+        <div id="score">Score: 0</div>
+        <div id="timer">Time Left: <span id="time-left">30</span>s</div>
+        <div id="riddle"></div>
+        <input type="text" id="answer" placeholder="Type your answer here..." autocomplete="off">
+        <button id="submit">Submit Answer</button>
+        <div id="feedback"></div>
+        <div id="final-score"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const riddles = [
+                { question: "I am made of tiny shells and help prevent coastal erosion. What am I?", answer: "sand" },
+                { question: "What is the largest animal in the ocean?", answer: "blue whale" },
+                { question: "I am known as the 'rainforests of the sea'. What am I?", answer: "coral reef" },
+                { question: "What marine animal has three hearts?", answer: "octopus" },
+                { question: "What is the term for a group of dolphins?", answer: "pod" },
+                { question: "Which sea creature is known for its ink-squirting defense mechanism?", answer: "squid" },
+                { question: "Which marine animal is considered highly intelligent?", answer: "dolphin" },
+                { question: "I have five arms but no legs and I live in the ocean. What am I?", answer: "starfish" },
+            ];
+
+            let score = 0;
+            let timeLeft = 30; // seconds
+            let timerInterval;
+            let currentRiddleIndex = 0;
+            let shuffledRiddles = shuffleArray([...riddles]);
+            let gameEnded = false;
+
+            const scoreElement = document.getElementById('score');
+            const timerElement = document.getElementById('time-left');
+            const riddleElement = document.getElementById('riddle');
+            const answerInput = document.getElementById('answer');
+            const submitButton = document.getElementById('submit');
+            const feedbackElement = document.getElementById('feedback');
+            const finalScoreElement = document.getElementById('final-score');
+
+            function startTimer() {
+                timeLeft = 30;
+                timerElement.textContent = timeLeft;
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerElement.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitAnswer();
+                    }
+                }, 1000);
+            }
+
+            function displayNextRiddle() {
+                if (currentRiddleIndex < shuffledRiddles.length) {
+                    riddleElement.textContent = shuffledRiddles[currentRiddleIndex].question;
+                    answerInput.value = '';
+                    feedbackElement.textContent = '';
+                    feedbackElement.className = '';
+                    answerInput.disabled = false;
+                    submitButton.disabled = false;
+                    answerInput.focus();
+                    startTimer();
+                } else {
+                    showFinalScore();
+                }
+            }
+
+            function updateScore() {
+                scoreElement.textContent = `Score: ${score}`;
+            }
+
+            function submitAnswer() {
+                if (gameEnded) return;
+
+                const userAnswer = answerInput.value.trim().toLowerCase();
+                const correctAnswer = shuffledRiddles[currentRiddleIndex].answer.toLowerCase();
+
+                clearInterval(timerInterval);
+                answerInput.disabled = true;
+                submitButton.disabled = true;
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedbackElement.textContent = 'Correct!';
+                    feedbackElement.className = 'correct';
+                    // playSound('correct');
+                } else {
+                    feedbackElement.textContent = `Incorrect! The correct answer was: ${shuffledRiddles[currentRiddleIndex].answer}`;
+                    feedbackElement.className = 'incorrect';
+                    // playSound('incorrect');
+                }
+
+                updateScore();
+                currentRiddleIndex++;
+
+                setTimeout(displayNextRiddle, 3000);
+            }
+
+            function showFinalScore() {
+                gameEnded = true;
+                riddleElement.textContent = '';
+                feedbackElement.textContent = '';
+                answerInput.style.display = 'none';
+                submitButton.style.display = 'none';
+                timerElement.style.display = 'none';
+                finalScoreElement.textContent = `Game Over! Your final score is: ${score} out of ${shuffledRiddles.length}`;
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            /*
+            function playSound(type) {
+                let audio;
+                if (type === 'correct') {
+                    audio = new Audio('https://example.com/correct.mp3');
+                } else {
+                    audio = new Audio('https://example.com/incorrect.mp3');
+                }
+                audio.play();
+            }
+            */
+
+            submitButton.addEventListener('click', submitAnswer);
+            answerInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    submitAnswer();
+                }
+            });
+
+            displayNextRiddle();
+            updateScore();
+
+            // Background bubble animation
+            createBubbles();
+
+            function createBubbles() {
+                const bubbleCount = 20;
+                for (let i = 0; i < bubbleCount; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    bubble.style.left = Math.random() * 100 + 'vw';
+                    const size = Math.random() * 50 + 10;
+                    bubble.style.width = bubble.style.height = size + 'px';
+                    bubble.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    bubble.style.opacity = Math.random() * 0.7 + 0.3;
+                    document.body.appendChild(bubble);
+
+                    bubble.addEventListener('animationend', () => {
+                        bubble.remove();
+                    });
+                }
+                setTimeout(createBubbles, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
