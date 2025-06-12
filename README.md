@@ -5,7 +5,6 @@ Welcome to the official GitHub repository for Team **Cyber-Saviors** participati
 ## Team Members
 - **Lavish**
 - **Deevesh**
-- **Chrishini**
 - **Immanuel**
 
 ## Project Overview
